@@ -22,10 +22,13 @@ setup(
 	install_requires=[
 		# -*- Extra requirements: -*-
 	],
+	setup_requires=[
+		'nose'
+	],
 	entry_points=\
 	"""
         [ckan.plugins]
 	# Add plugins here, eg
-	# myplugin=ckanext.sitemap:PluginClass
+	sitemap=ckanext.sitemap.plugin:SitemapPlugin
 	""",
 )
