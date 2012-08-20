@@ -17,7 +17,7 @@ log = logging.getLogger(__file__)
 class SitemapController(BaseController):
 
     @beaker_cache(expire=604800, type="memory", invalidate_on_startup=True)
-    def view(self):
+    def _render_sitemap(self):
         root = etree.Element("urlset", nsmap={None: SITEMAP_NS})
         pkgs = Session.query(Package).all()
         for pkg in pkgs:
@@ -35,3 +35,5 @@ class SitemapController(BaseController):
                 lastmod.text = res.created.strftime('%Y-%m-%d')
         response.headers['Content-type'] = 'text/xml'
         return etree.tostring(root, pretty_print=True)
+    def view(self):
+        return self._render_sitemap()
