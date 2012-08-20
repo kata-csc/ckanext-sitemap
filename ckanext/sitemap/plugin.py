@@ -10,6 +10,6 @@ class SitemapPlugin(SingletonPlugin):
 
     def before_map(self, map):
         controller='ckanext.sitemap.controller:SitemapController'
-        map.connect('sitemap', '/sitemap', controller=controller, action='view')
+        map.connect('sitemap', '/sitemap.xml', controller=controller, action='view')
         return map
         

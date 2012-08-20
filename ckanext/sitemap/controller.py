@@ -8,6 +8,7 @@ from ckan.model import Session, Package
 from ckan.lib.helpers import url_for
 from lxml import etree
 from pylons import config
+from pylons.decorators.cache import beaker_cache
 
 SITEMAP_NS = "http://www.sitemaps.org/schemas/sitemap/0.9"
 
@@ -15,6 +16,7 @@ log = logging.getLogger(__file__)
 
 class SitemapController(BaseController):
 
+    @beaker_cache(expire=604800, type="memory", query_args=True)
     def view(self):
         root = etree.Element("urlset", nsmap={None: SITEMAP_NS})
         pkgs = Session.query(Package).all()
