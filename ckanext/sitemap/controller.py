@@ -16,7 +16,7 @@ log = logging.getLogger(__file__)
 
 class SitemapController(BaseController):
 
-    @beaker_cache(expire=604800, type="memory", invalidate_on_startup=True)
+    @beaker_cache(expire=3600*24, type="dbm", invalidate_on_startup=True)
     def _render_sitemap(self):
         root = etree.Element("urlset", nsmap={None: SITEMAP_NS})
         pkgs = Session.query(Package).all()
