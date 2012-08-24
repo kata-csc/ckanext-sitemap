@@ -12,7 +12,7 @@ import datetime
 
 from pylons import config
 
-from ckan.model import Session, Package, User, Group
+from ckan.model import Session, Package, Resource
 import ckan.model as model
 from ckan.tests import CreateTestData
 from ckan.lib.helpers import url_for
@@ -71,4 +71,27 @@ class TestSitemap(FunctionalTestCase, unittest.TestCase):
                                                        id = pkg.name,
                                                        resource_id = pkg.resources[0].id)
         self.assert_(tree.getroot()[1][0].text == resurl)
+
+    def _create_pkg(self):
+        model.repo.new_revision()
+        pkg = Package.get('annakarenina')
+        pkg.name = "fookarenina"
+        pkg.add_resource('www.google.com',description='foo', name="foo")
+        Session.add(pkg)
+        Session.commit()
+        return pkg
+
+
+    def test_zcache(self):
+        url = url_for(controller="ckanext.sitemap.controller:SitemapController",
+                      action='view')
+        cont1 = self.app.get(url)
+        cont2 = self.app.get(url)
+        self.assert_(cont1.body == cont2.body)
+        log.debug(cont1.body)
+        pkg = self._create_pkg()
+        log.debug(len(pkg.resources))
+        cont2 = self.app.get(url)
+        log.debug(cont2.body)
+        self.assert_(cont1.body == cont2.body)
 
