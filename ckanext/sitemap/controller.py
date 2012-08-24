@@ -17,9 +17,12 @@ log = logging.getLogger(__file__)
 class SitemapController(BaseController):
 
     @beaker_cache(expire=3600*24, type="dbm", invalidate_on_startup=True)
+    def _get_packages(self):
+        return Session.query(Package).all()
+
     def _render_sitemap(self):
         root = etree.Element("urlset", nsmap={None: SITEMAP_NS})
-        pkgs = Session.query(Package).all()
+        pkgs = self._get_packages()
         for pkg in pkgs:
             url = etree.SubElement(root, 'url')
             loc = etree.SubElement(url, 'loc')
