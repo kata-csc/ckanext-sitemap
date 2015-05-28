@@ -19,7 +19,9 @@ class SitemapController(BaseController):
     @beaker_cache(expire=3600*24, type="dbm", invalidate_on_startup=True)
     def _render_sitemap(self):
         root = etree.Element("urlset", nsmap={None: SITEMAP_NS})
-        pkgs = Session.query(Package).all()
+        pkgs = Session.query(Package).filter(Package.type=='dataset').filter(Package.private!=True).\
+            filter(Package.state=='active').all()
+        log.debug(pkgs)
         for pkg in pkgs:
             url = etree.SubElement(root, 'url')
             loc = etree.SubElement(url, 'loc')
