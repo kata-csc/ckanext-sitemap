@@ -47,15 +47,15 @@ class SitemapController(BaseController):
             lastmod = etree.SubElement(url, 'lastmod')
             lastmod.text = pkg.latest_related_revision.timestamp.strftime('%Y-%m-%d')
             self._create_language_alternatives(pkg_url, url)
-            for res in pkg.resources:
-                url = etree.SubElement(root, 'url')
-                loc = etree.SubElement(url, 'loc')
-                loc.text = config.get('ckan.site_url') + url_for(controller="package", action="resource_read",
-                                                                 id=pkg.name, resource_id=res.id)
-                lastmod = etree.SubElement(url, 'lastmod')
-                self._create_language_alternatives(url_for(controller="package", action="resource_read",
-                                                           id=pkg.name, resource_id=res.id), url)
-                lastmod.text = res.created.strftime('%Y-%m-%d')
+            # for res in pkg.resources:
+            #     url = etree.SubElement(root, 'url')
+            #     loc = etree.SubElement(url, 'loc')
+            #     loc.text = config.get('ckan.site_url') + url_for(controller="package", action="resource_read",
+            #                                                      id=pkg.name, resource_id=res.id)
+            #     lastmod = etree.SubElement(url, 'lastmod')
+            #     self._create_language_alternatives(url_for(controller="package", action="resource_read",
+            #                                                id=pkg.name, resource_id=res.id), url)
+            #     lastmod.text = res.created.strftime('%Y-%m-%d')
         response.headers['Content-type'] = 'text/xml'
         return etree.tostring(root, pretty_print=True)
 
