@@ -21,6 +21,7 @@ setup(
 	zip_safe=False,
 	install_requires=[
 		# -*- Extra requirements: -*-
+		'lxml >= 3.1.2',
 	],
 	setup_requires=[
 		'nose'
