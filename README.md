@@ -12,4 +12,6 @@ You can install the extension with:
 Requirements
 ============
 
-* Tested with CKAN 2.1.2
+* libxml2 and libxslt C libraries prior to installation
+
+* Tested with CKAN 2.4.1
