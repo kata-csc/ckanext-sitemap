@@ -19,10 +19,6 @@ setup(
 	namespace_packages=['ckanext', 'ckanext.sitemap'],
 	include_package_data=True,
 	zip_safe=False,
-	install_requires=[
-		# -*- Extra requirements: -*-
-		'lxml >= 3.1.2',
-	],
 	setup_requires=[
 		'nose'
 	],
