@@ -2,16 +2,35 @@ Sitemap is a CKAN extension which will provide sitemap.xml which will inform sea
 URLs. Note that this extension doesn't provide any modifications to robots.txt provided by CKAN so without any
 modifications the URL exclusion provided by robots.txt is in use.
 
+The extension has been tested with CKAN 2.4.1
+
+
 Installation
 ============
 
-You can install the extension with:
+Activate your CKAN virtualenv:
 
-`pip install -e git://github.com/kata-csc/ckanext-sitemap.git#egg=ckanext-sitemap`
+    source /usr/lib/ckan/default/bin/activate
 
-Requirements
-============
+Install ckanext-sitemap:
 
-* libxml2 and libxslt C libraries prior to installation
+    pip install -e git://github.com/kata-csc/ckanext-sitemap.git#egg=ckanext-sitemap
 
-* Tested with CKAN 2.4.1
+Install its dependencies (you will also need the `libxml2` and `libxslt` C libraries):
+
+    pip install -r /usr/lib/ckan/default/src/ckanext-sitemap/requirements.txt
+
+Add ckanext-sitemap to your CKAN configuration file (e.g. `/etc/ckan/default/production.ini`):
+
+    ckan.plugins = ... sitemap
+
+Finally, restart CKAN:
+
+    sudo service apache2 restart
+
+
+Usage
+=====
+
+Once installation is complete and you have restarted CKAN the sitemap will be available at `/sitemap.xml`.
+
