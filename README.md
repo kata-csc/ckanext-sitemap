@@ -1,3 +1,5 @@
+#This repository was part of an older version of Etsin which is no longer in use. For the newest version of Etsin, see https://github.com/CSCfi/etsin-finder/
+
 Sitemap is a CKAN extension which will provide sitemap.xml which will inform search engines about available
 URLs. Note that this extension doesn't provide any modifications to robots.txt provided by CKAN so without any
 modifications the URL exclusion provided by robots.txt is in use.
